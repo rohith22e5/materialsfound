@@ -1,0 +1,26 @@
+{% extends "allfurnitures/layout.html" %}
+{% load static %}
+
+{% block body %}
+        <div class="card" id="cards">
+            {% for furniture in furnitures %}
+            <div class="card_body"   data-name="{{ furniture.name }}"  data-custom-property1="{{ furniture.description }}" data-custom-property2="{{ furniture.category }}" data-custom-property3="{{ furniture.date }}" >
+                <h3>{{ furniture.name }}</h3>
+                <span>
+                    <img src="{{ furniture.image.url }}" alt="{{ furniture.name }}">
+                </span>
+                <p>Price: ₹{{ furniture.price }}/-</p>
+                <p>Created by: {{ furniture.user }}</p>
+                <p>Rating: {{ furniture.rating }}</p>
+                <a href="{% url 'furnituredetails' furniture.id %}"  class="btn btn-primary" >View</a>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="show_cards">  
+        </div>
+{% endblock %}
+
+
+{% block script %}
+<script src="{% static 'allfurnitures/index.js' %}" ></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "allfurnitures/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div>
+    <h1>Cart</h1>
+    {% for cart in carts %}
+    <div class="card_body">
+        <h3>{{ cart.furniture.name }}</h3>
+        <span>
+            <img src="{{ cart.furniture.image.url }}" alt="{{ cart.furniture.name }}">
+        </span>
+        <p>{{ cart.furniture.price }}</p>
+        <p>{{ cart.furniture.user }}</p>
+        <p>{{ cart.furniture.rating }}</p>
+        <a href="{% url 'furnituredetails' cart.furniture.id %}"  class="btn btn-primary" >View</a>
+    </div>
+    {% endfor %}
+    <div id="show_bill">
+        <h3>Total: ₹{{ bill }}/-</h3>
+        <a href="#" class="btn btn-primary">Checkout</a>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+ <link href="{% static 'allfurnitures/cart.css' %}" rel="stylesheet" >
+{% endblock %}

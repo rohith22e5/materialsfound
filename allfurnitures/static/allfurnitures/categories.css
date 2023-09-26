@@ -1,0 +1,36 @@
+/* Reset some default browser styles */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the container */
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+/* Style the buttons */
+.categories {
+    background-color: #007BFF; /* Blue color for buttons */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.categories:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Style the "show_cards" division */
+#show_cards {
+    width: 70%; /* Adjust the width as needed */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Add additional styles as needed for your specific design */

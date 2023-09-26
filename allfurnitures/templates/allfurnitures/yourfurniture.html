@@ -1,0 +1,21 @@
+{% extends "allfurnitures/layout.html" %}
+
+{% block body %}
+    <a href="{% url 'addfurniture' %}" class="btn btn-primary">+ Sell a New Furniture🪚</a>
+    <div class="cards">
+        {% for furniture in furnitures %}
+        <div class="card_body">
+            <h3>{{ furniture.name }}</h3>
+            <span>
+                <img src="{{ furniture.image.url }}" alt="{{ furniture.name }}">
+            </span>
+            <p>{{ furniture.price }}</p>
+            <p>{{ furniture.user }}</p>
+            <p>{{ furniture.rating }}</p>
+            <a href="{% url 'furnituredetails' furniture.id %}"  class="btn btn-primary" >View</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

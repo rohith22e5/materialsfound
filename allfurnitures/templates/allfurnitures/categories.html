@@ -1,0 +1,21 @@
+{% extends "allfurnitures/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div>
+    <div id="cards">
+    {% for furniture in furnitures %}
+    <div>
+        <button class="categories" data-category="{{ furniture }}">{{ furniture }}</button>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+<div id="show_cards">
+</div>
+{% endblock %}
+
+{% block script %}
+<link href="{% static 'allfurnitures/categories.css' %}" rel="stylesheet" >
+<script src="{% static 'allfurnitures/categories.js' %}" ></script>
+{% endblock %}

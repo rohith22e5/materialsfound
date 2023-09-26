@@ -1,0 +1,11 @@
+{% extends "allfurnitures/layout.html" %}
+
+{% block body %}
+<div>
+    {% if user == User %}
+    <h1>Account</h1>
+    <h3>Name:  {{ user.username }}</h3>
+    <h3>Email id: {{ user.email }}</h3>
+    {% endif %}
+</div>
+{% endblock %}

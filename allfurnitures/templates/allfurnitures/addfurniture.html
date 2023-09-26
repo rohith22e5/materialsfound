@@ -1,0 +1,29 @@
+{% extends "allfurnitures/layout.html" %}
+
+{% block body %}
+       <form  action="{% url 'addfurniture' %}" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Furniture Name:</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter furniture name">
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" name="price" id="price" placeholder="Enter price">
+        </div>
+        <div class="form-group">
+            <label for="image">Image file :</label>
+            <input type="file" class="form-control" name="image" id="image" placeholder="Enter image file" accept="image/*" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" name="description" id="description" placeholder="Enter description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <input type="text" class="form-control" name="category" id="category" placeholder="Enter category">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add Furniture">
+       </form>
+{% endblock %}
