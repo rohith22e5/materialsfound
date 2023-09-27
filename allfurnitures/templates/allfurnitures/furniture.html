@@ -13,8 +13,14 @@
         <p>Rating: {{ furniture.rating }}</p>
         <p>Created on: {{ furniture.date }}</p>
     </div>
+    <div id="options">
+        {% csrf_token %}
+        <button id="cart_button"  data-id="{{ furniture.id }} ">Add to Cart</button>
+        <button id="buy_button"  data-id="{{ furniture.id }}">Buy Now</button>
+    </div>
 {% endblock %}
 
 {% block script %}
 <link href="{% static 'allfurnitures/furniture.css' %}" rel="stylesheet" >
+<script src="{% static 'allfurnitures/furniture.js' %}"></script>
 {% endblock %}

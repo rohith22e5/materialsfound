@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 import json
 from django.views.decorators.csrf import csrf_exempt
-from .models import User, Furniture
+from .models import User, Furniture, Cart
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core import serializers
@@ -108,6 +108,14 @@ def cart(request):
             "carts": request.user.carts.all(),
             "bill": bill
         })
+    elif request.method=="POST":
+        data = json.loads(request.body)
+        furniture_id = data.get("id")
+        quantity = data.get("quantity")
+        furniture = Furniture.objects.get(id=furniture_id)
+        cart = Cart(user=request.user, furniture=furniture, quantity=quantity)
+        cart.save()
+        return JsonResponse({"message":"Added to cart"},status=201)
     
 @login_required
 def account(request):
