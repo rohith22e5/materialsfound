@@ -113,9 +113,18 @@ def cart(request):
         furniture_id = data.get("id")
         quantity = data.get("quantity")
         furniture = Furniture.objects.get(id=furniture_id)
+        existing_cart_item = Cart.objects.filter(user=request.user, furniture=furniture).first()
         cart = Cart(user=request.user, furniture=furniture, quantity=quantity)
+        if existing_cart_item:
+    # Item already exists in the cart, so remove it
+            existing_cart_item.delete()
+            usercarts = request.user.carts.count()
+            return JsonResponse({"message": "Removed from cart", "cart_items": usercarts}, status=201)
+        # Item doesn't exist in the cart, so add it
         cart.save()
-        return JsonResponse({"message":"Added to cart"},status=201)
+        usercarts = request.user.carts.count()
+        return JsonResponse({"message": "Added to cart", "cart_items": usercarts}, status=201)
+
     
 @login_required
 def account(request):
@@ -127,8 +136,16 @@ def account(request):
 @login_required
 def furniture(request,furniture_id):
     if request.method=="GET":
-        return render(request, "allfurnitures/furniture.html",{
-            "furniture": Furniture.objects.get(id=furniture_id)
+        cart=Cart.objects.filter(user=request.user, furniture=Furniture.objects.get(id=furniture_id)).first()
+        if cart:
+            return render(request, "allfurnitures/furniture.html",{
+                "furniture": Furniture.objects.get(id=furniture_id),
+                "change_button": "Remove from cart"
+            })
+        else:
+         return render(request, "allfurnitures/furniture.html",{
+            "furniture": Furniture.objects.get(id=furniture_id),
+            "change_button": "Add to cart"
         })
     else:
         return HttpResponse("Method not allowed")

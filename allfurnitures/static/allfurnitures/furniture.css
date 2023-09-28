@@ -92,4 +92,49 @@ h2 {
     margin-top: 20px;
 }
 
+/* Add this CSS to your existing styles.css file */
+
+#options {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    padding: 10px;
+}
+
+/* Style the "Add to Cart" button */
+#cart_button {
+    padding: 10px 20px;
+    background-color: #007BFF; /* Blue color for Add to Cart */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Add some spacing between buttons */
+}
+
+#cart_button:hover {
+    background-color: #0056b3;
+}
+
+/* Style the "Buy Now" button */
+#buy_button {
+    padding: 10px 20px;
+    background-color: #FF5733; /* Orange color for Buy Now */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Add some spacing between buttons */
+}
+
+#buy_button:hover {
+    background-color: #FF4500;
+}
 /* Add additional styles as needed for your specific design */

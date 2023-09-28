@@ -2,8 +2,52 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('furniture.js loaded');
     const element=document.getElementById('cart_button');
     element.onclick=function(){
-        console.log('cart button clicked');
-        fetch('/Cart', {
+        const fss= document.getElementById('cards');
+        fss.style.display='none';
+        const ess = document.getElementById('options');
+        ess.style.display='none';
+        if (element.innerHTML==='Add to cart'){
+            const divi=document.createElement('div')
+            divi.innerHTML=`<div class="card" style="width: 18rem;">
+            <div class="form-group">
+            <label for="input_quantity">Quantity:</label>
+            <input type="number" class="form-control" name="quantity" id="input_quantity" placeholder="Enter quantity">
+            </div>
+            <button id="add_quantity" class="btn btn-primary">Add to cart</button>
+                </div>`
+            document.querySelector('#show_cards').append(divi);
+            console.log('cart button clicked');
+            const elemental=document.getElementById('add_quantity');
+            elemental.onclick=function(){
+                divi.style.display='none';
+                console.log('add quantity button clicked');
+                fetch('/Cart', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken") 
+                },
+                body: JSON.stringify({
+                    id: element.dataset.id,
+                    quantity: document.querySelector('#input_quantity').value
+                })
+            }).then(response => response.json()).then(result => {
+                console.log(result);
+                alert(result.message);
+                if (result.message === 'Added to cart') {
+                    element.innerHTML='Remove from cart';
+                } else {
+                    element.innerHTML='Add to cart';
+                }
+                window.location.reload();
+            }).catch(error => {
+                console.log('Error:', error);
+            });
+
+            };
+        }
+        else{
+            fetch('/Cart', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -15,14 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         }).then(response => response.json()).then(result => {
             console.log(result);
-            if (result.message === 'Added to cart') {
-                element.innerHTML='Remove from cart';
-            } else {
-                element.innerHTML='Add to cart';
-            }
+            alert(result.message);
+            element.innerHTML='Add to cart';
+            window.location.reload();
         }).catch(error => {
             console.log('Error:', error);
         });
+        };
     }
 });
 

@@ -15,9 +15,10 @@
     </div>
     <div id="options">
         {% csrf_token %}
-        <button id="cart_button"  data-id="{{ furniture.id }} ">Add to Cart</button>
+        <button id="cart_button"  data-id="{{ furniture.id }} ">{{ change_button }}</button>
         <button id="buy_button"  data-id="{{ furniture.id }}">Buy Now</button>
     </div>
+    <div id="show_cards"></div>
 {% endblock %}
 
 {% block script %}
