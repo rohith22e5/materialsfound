@@ -30,19 +30,21 @@ h2 {
     margin: 0 10px;
 }
 
-/* Style the card container */
+/* Style the card container to cover the whole page */
 #cards {
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f9fa;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .card {
-    width: device-width;
-    padding: 10px;
+    width: 100%;
+    padding: 20px;
     border: 1px solid #ccc;
-    margin: 10px;
+    margin: 10px 0;
     text-align: center;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -50,11 +52,13 @@ h2 {
 
 .card h3 {
     font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .card img {
     max-width: 100%;
     height: auto;
+    margin-bottom: 10px;
 }
 
 .card p {
@@ -64,7 +68,7 @@ h2 {
 .btn-primary {
     background-color: #007BFF;
     color: #fff;
-    padding: 5px 10px;
+    padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
@@ -74,26 +78,70 @@ h2 {
     background-color: #0056b3;
 }
 
-/* Use a media query to make cards stack vertically on smaller screens */
-@media screen and (max-width: 768px) {
-    #cards {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .card {
-        width: 80%;
-    }
-}
-
-/* Style the "Show Cards" section, if needed */
+/* Style the "Show Cards" section */
 #show_cards {
     text-align: center;
     margin-top: 20px;
 }
 
-/* Add this CSS to your existing styles.css file */
+/* Style the "Add Comment" section */
+#comments_page {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+#comments_page h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#comments_page p {
+    margin: 10px 0;
+}
+
+/* Style the "Add Comment" form */
+#add_comment_form {
+    width: 100%;
+    max-width: 600px; /* Limit the form width for readability */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+#add_comment_form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#comments {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#comment_button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#comment_button:hover {
+    background-color: #0056b3;
+}
+
+/* Style the "Add to Cart" and "Buy Now" buttons */
 #options {
     position: fixed;
     bottom: 0;
@@ -102,39 +150,38 @@ h2 {
     background-color: #fff;
     border-top: 1px solid #ccc;
     display: flex;
-    justify-content: center; /* Center the buttons horizontally */
+    justify-content: center;
     padding: 10px;
 }
 
-/* Style the "Add to Cart" button */
-#cart_button {
+#cart_button,
+#buy_button {
     padding: 10px 20px;
-    background-color: #007BFF; /* Blue color for Add to Cart */
-    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 0 10px;
+}
+
+#cart_button {
+    background-color: #007BFF;
+    color: #fff;
     transition: background-color 0.3s;
-    margin: 0 10px; /* Add some spacing between buttons */
 }
 
 #cart_button:hover {
     background-color: #0056b3;
 }
 
-/* Style the "Buy Now" button */
 #buy_button {
-    padding: 10px 20px;
-    background-color: #FF5733; /* Orange color for Buy Now */
+    background-color: #FF5733;
     color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s;
-    margin: 0 10px; /* Add some spacing between buttons */
 }
 
 #buy_button:hover {
     background-color: #FF4500;
 }
+
 /* Add additional styles as needed for your specific design */
+

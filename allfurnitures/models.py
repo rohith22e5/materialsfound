@@ -38,3 +38,12 @@ class Cart(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.furniture.name} - {self.quantity}"
+    
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE, related_name="comments")
+    comment = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.furniture.name} - {self.date.strftime('%b %d %Y, %I:%M %p')}"

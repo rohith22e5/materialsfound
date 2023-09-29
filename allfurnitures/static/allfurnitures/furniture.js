@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+     const butt= document.getElementById('comment_button')
+     butt.disabled=true;
     console.log('furniture.js loaded');
     const element=document.getElementById('cart_button');
     element.onclick=function(){
@@ -67,6 +69,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         };
     }
+    document.getElementById('comments').onkeyup=function (){
+        if (document.getElementById('comments').value.length>0){
+            butt.disabled=false;
+        }
+        else{
+            butt.disabled=true;
+        }
+        butt.onclick=function () {
+            fetch('/Comment', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken") 
+            },
+            body: JSON.stringify({
+                id: element.dataset.id,
+                comment: document.getElementById('comments').value
+            })
+        }).then(response => response.json()).then(result => {
+            console.log(result);
+            alert(result.message);
+            window.location.reload();
+        }).catch(error => {
+            console.log('Error:', error);
+        });
+        };
+    };
 });
 
 

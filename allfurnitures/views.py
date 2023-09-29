@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 import json
 from django.views.decorators.csrf import csrf_exempt
-from .models import User, Furniture, Cart
+from .models import User, Furniture, Cart, Comments
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core import serializers
@@ -137,10 +137,16 @@ def account(request):
 def furniture(request,furniture_id):
     if request.method=="GET":
         cart=Cart.objects.filter(user=request.user, furniture=Furniture.objects.get(id=furniture_id)).first()
+        comments=Furniture.objects.get(id=furniture_id).comments.all()
+        comments=comments.order_by("-date").all()
+        paginator = Paginator(comments, 5)
+        page_number = request.GET.get('page')
+        comments = paginator.get_page(page_number)
         if cart:
             return render(request, "allfurnitures/furniture.html",{
                 "furniture": Furniture.objects.get(id=furniture_id),
-                "change_button": "Remove from cart"
+                "change_button": "Remove from cart",
+                "comments": comments,
             })
         else:
          return render(request, "allfurnitures/furniture.html",{
@@ -158,3 +164,18 @@ def category(request,category):
         return JsonResponse([furniture.serialize() for furniture in furnitures],safe=False)
     else:
         return JsonResponse({"error":"GET request required."},status=400)
+    
+@login_required
+def comment(request):
+    if request.method=='POST':
+        data=json.loads(request.body)
+        id=data.get("id")
+        comment_msg=data.get("comment")
+        user=request.user
+        furniture=Furniture.objects.get(id=id)
+        comment=Comments(user=user,furniture=furniture,comment=comment_msg)
+        comment.save()
+        return JsonResponse({"message":"Comment added successfully"},status=201)
+    else:
+        return JsonResponse({"error":"POST request required."},status=400)
+    

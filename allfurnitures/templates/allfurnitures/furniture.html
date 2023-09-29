@@ -12,7 +12,33 @@
         <p>Description: {{ furniture.description }}</p>
         <p>Rating: {{ furniture.rating }}</p>
         <p>Created on: {{ furniture.date }}</p>
+        <div id="comments_page">
+            <h3>Comments:</h3>
+            {% for comment in comments %}
+                <p>{{ comment.user }}: {{ comment.comment }}</p>
+            {% endfor %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination  d-flex justify-content-center ">
+                    {% if comments.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ comments.previous_page_number }}">Previous</a></li>
+                  {% endif %}
+                    {% if comments.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{ comments.next_page_number }}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <span>
+        <label for="comments" style="padding-bottom: 5% ;">Add Comment:</label>
+        <span>
+        <textarea id="comments" name="comments" rows="4" cols="50">
+        </textarea>
+        <button id="comment_button" data-id="{{ furniture.id }}">Submit</button>
+        </span>
+        </span>
     </div>
+    <br>
+    
     <div id="options">
         {% csrf_token %}
         <button id="cart_button"  data-id="{{ furniture.id }} ">{{ change_button }}</button>
