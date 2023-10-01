@@ -14,4 +14,5 @@ urlpatterns=[
     path("furniture/<int:furniture_id>",views.furniture,name="furnituredetails"),
     path("categories/<str:category>",views.category,name="category"),
     path("Comment",views.comment,name="Comment"),
+    path("wishlist",views.wishlist,name="wishlist"),
 ]

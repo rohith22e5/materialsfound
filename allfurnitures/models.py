@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    pass
+    wishlist = models.ManyToManyField("Furniture", blank=True, related_name="wishlists")
 
 class Furniture(models.Model):
     name = models.CharField(max_length=64)
@@ -47,3 +47,5 @@ class Comments(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.furniture.name} - {self.date.strftime('%b %d %Y, %I:%M %p')}"
+    
+

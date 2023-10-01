@@ -142,16 +142,19 @@ def furniture(request,furniture_id):
         paginator = Paginator(comments, 5)
         page_number = request.GET.get('page')
         comments = paginator.get_page(page_number)
+        furniture=Furniture.objects.get(id=furniture_id)
         if cart:
             return render(request, "allfurnitures/furniture.html",{
                 "furniture": Furniture.objects.get(id=furniture_id),
                 "change_button": "Remove from cart",
                 "comments": comments,
+                "color": "red" if furniture in request.user.wishlist.all() else "black"
             })
         else:
          return render(request, "allfurnitures/furniture.html",{
             "furniture": Furniture.objects.get(id=furniture_id),
-            "change_button": "Add to cart"
+            "change_button": "Add to cart",
+            "color": "red" if furniture in request.user.wishlist.all() else "black",
         })
     else:
         return HttpResponse("Method not allowed")
@@ -179,3 +182,23 @@ def comment(request):
     else:
         return JsonResponse({"error":"POST request required."},status=400)
     
+@login_required
+def wishlist(request):
+    if request.method=="GET":
+        return render(request, "allfurnitures/wishlist.html",{
+            "wishlists": request.user.wishlist.all()
+        })
+    elif request.method=="POST":
+        data = json.loads(request.body)
+        furniture_id = data.get("id")
+        furniture = Furniture.objects.get(id=furniture_id)
+        existing_wishlist_item = request.user.wishlist.filter(id=furniture_id).first()
+        if existing_wishlist_item:
+    # Item already exists in the wishlist, so remove it
+            request.user.wishlist.remove(furniture)
+            return JsonResponse({"message": "Removed from wishlist"}, status=201)
+        # Item doesn't exist in the wishlist, so add it
+        request.user.wishlist.add(furniture)
+        return JsonResponse({"message": "Added to wishlist"}, status=201)
+    else:
+        return HttpResponse("Method not allowed")

@@ -96,6 +96,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         };
     };
+    const wishlister=document.getElementById('wishlist');
+    wishlister.addEventListener('click', function() {
+        console.log('wishlist button clicked');
+
+        fetch('/wishlist', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken") 
+            },
+            body: JSON.stringify({
+                id: element.dataset.id,
+            })
+        }).then(response => response.json()).then(result => {
+            console.log(result);
+            alert(result.message);
+            if (result.message === 'Added to wishlist') {
+                document.getElementById('wishlist').style.fill='red';
+            } else {
+                document.getElementById('wishlist').style.fill='black';
+            }
+        }).catch(error => {
+            console.log('Error:', error);
+        });
+    });
 });
 
 

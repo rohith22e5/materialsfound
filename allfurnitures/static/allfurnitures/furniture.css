@@ -183,5 +183,25 @@ h2 {
     background-color: #FF4500;
 }
 
+/* wishlist.css */
+/* Style the wishlist icon */
+#wishlist {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 10px; /* Adjust the right position as needed */
+    z-index: 2; /* Ensure the icon is above the image */
+    width: 24px; /* Adjust the width of the icon */
+    height: 24px; /* Adjust the height of the icon */
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+    border: black solid 1px;
+}
+
+/* Adjust the container's position to accommodate the icon */
+.image-container {
+    position: relative;
+}
+
 /* Add additional styles as needed for your specific design */
 

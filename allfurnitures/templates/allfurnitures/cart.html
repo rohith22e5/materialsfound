@@ -10,9 +10,9 @@
         <span>
             <img src="{{ cart.furniture.image.url }}" alt="{{ cart.furniture.name }}">
         </span>
-        <p>{{ cart.furniture.price }}</p>
-        <p>{{ cart.furniture.user }}</p>
-        <p>{{ cart.furniture.rating }}</p>
+        <p>Price: ₹{{ cart.furniture.price }}</p>
+        <p>Created by: {{ cart.furniture.user }}</p>
+        <p>Rating: {{ cart.furniture.rating }}</p>
         <a href="{% url 'furnituredetails' cart.furniture.id %}"  class="btn btn-primary" >View</a>
     </div>
     {% endfor %}
