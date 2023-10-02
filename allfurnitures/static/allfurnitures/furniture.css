@@ -205,3 +205,14 @@ h2 {
 
 /* Add additional styles as needed for your specific design */
 
+/* Default star color */
+.star-rating .stars .star {
+    color: #cccccc;
+    font-size: 24px;
+  }
+  
+  /* Color stars based on rating */
+  .star-rating .stars .star.active {
+    color: gold; /* Change this to the color you want for active stars */
+  }
+  

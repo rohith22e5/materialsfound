@@ -15,13 +15,30 @@ document.addEventListener('DOMContentLoaded', function() {
                           <img src="${furniture.image}" alt="${ furniture.name }">
                       </span>
                       <p>Price: ₹ ${furniture.price }/-</p>
-                      <p>Rating: ${ furniture.rating }</p>
+                      <div>Rating: <div class="star-rating" >
+                    <div class="stars" id="star_rating" data-rating="${ furniture.rating }">
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                      <span class="star">&#9733;</span>
+                    </div>
+                  </div></div>
                       <p>Created by: ${ furniture.user }</p>
                       <a href="furniture/${ furniture.id }" class="btn btn-primary" >View</a>
                   </div>
 
                     </div>`;
                     document.querySelector('#show_cards').append(card);
+                    const rating=document.querySelectorAll('.stars')
+                    rating.forEach(function (element) {
+                    const rate=element.dataset.rating;
+                    const stars = element.querySelectorAll('.star');
+                    for (let i = 0; i < rate; i++) {
+                      stars[i].classList.add('active');
+                    }
+    });
+
                 });
                 console.log(result);
 

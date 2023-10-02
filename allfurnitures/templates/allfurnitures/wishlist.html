@@ -10,7 +10,15 @@
             </span>
             <p>Price: ₹{{ furniture.price }}/-</p>
             <p>Created by: {{ furniture.user }}</p>
-            <p>Rating: {{ furniture.rating }}</p>
+            <div>Rating: <div class="star-rating" >
+                <div class="stars" id="star_rating" data-rating="{{ furniture.rating }}">
+                  <span class="star">&#9733;</span>
+                  <span class="star">&#9733;</span>
+                  <span class="star">&#9733;</span>
+                  <span class="star">&#9733;</span>
+                  <span class="star">&#9733;</span>
+                </div>
+              </div></div>
             <a href="{% url 'furnituredetails' furniture.id %}"  class="btn btn-primary" >View</a>
         </div>
         {% endfor %}

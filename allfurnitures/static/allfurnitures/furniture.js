@@ -121,6 +121,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Error:', error);
         });
     });
+    const rating=document.getElementById('star_rating');
+    const rate=rating.dataset.rating;
+    // Select the star elements and add the "active" class to color the appropriate number of stars
+    const stars = document.querySelectorAll('.star-rating .stars .star');
+
+    for (let i = 0; i < rate; i++) {
+    stars[i].classList.add('active');
+    }
+
 });
 
 

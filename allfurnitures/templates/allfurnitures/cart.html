@@ -12,7 +12,15 @@
         </span>
         <p>Price: ₹{{ cart.furniture.price }}</p>
         <p>Created by: {{ cart.furniture.user }}</p>
-        <p>Rating: {{ cart.furniture.rating }}</p>
+        <div>Rating: <div class="star-rating" >
+            <div class="stars" id="star_rating" data-rating="{{ cart.furniture.rating }}">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+            </div>
+          </div></div>
         <a href="{% url 'furnituredetails' cart.furniture.id %}"  class="btn btn-primary" >View</a>
     </div>
     {% endfor %}
