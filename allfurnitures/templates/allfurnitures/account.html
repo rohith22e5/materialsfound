@@ -1,11 +1,276 @@
 {% extends "allfurnitures/layout.html" %}
+{% load static %}
 
 {% block body %}
-<div>
-    {% if user == User %}
-    <h1>Account</h1>
-    <h3>Name:  {{ user.username }}</h3>
-    <h3>Email id: {{ user.email }}</h3>
-    {% endif %}
+<div class="page" data-username="{{ user.username }}" data-email="{{ user.email }}" data-photo="{{ user.image.url }}" >
+<div class="account-info">
+    {% if user.is_authenticated %}
+    <div class="logo">
+        <img src="{{ user.image.url }}" alt="{{ user.username }}">
+    </div>
+    <div class="name">
+        <h3>{{ user.username }}</h3>
+    </div>
+    <div class="expand-more">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+            <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+        </svg>
+    </div>
 </div>
+<div class="choices-full">
+    <div class="choices" ><a href="#">📦 Orders</a></div>
+    <div class="choices"><a href="{% url 'wishlist' %}"> ❤️Wishlist</a></div>
+    <div class="choices"><a href="#"> 🎁 Coupons</a></div>
+    <div class="choices"><a href="#">🎧 Help Center</a></div>
+</div>
+<div class="acoount-settings">
+    <h5>Account Settings</h5>
+    <div>
+        <div class="names">
+            <h6>Saved Cards and Wallet</h6>
+        </div>
+        <div class="expands-more">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="names">
+            <h6>Saved Adresses</h6>
+        </div>
+        <div class="expands-more">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="names">
+            <h6>Select Language</h6>
+        </div>
+        <div class="expands-more">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="names">
+            <h6>Notification Settings</h6>
+        </div>
+        <div class="expands-more">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+            </svg>
+        </div>
+    </div>
+
+</div>
+<div class="activity-settings">
+    <h5> My Activity </h5>
+    <div>
+        <div class="names">
+            <h6>Reviews</h6>
+        </div>
+        <div class="expands-more">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+            </svg>
+        </div>
+    </div>
+    <div>
+        <div class="names">
+            <h6>Quesitons and Answers</h6>
+        </div>
+        <div class="expands-more">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+            </svg>
+        </div>
+    </div>
+</div>
+<div class="logout"><a  href="{% url 'logout' %}" class="btn btn-primary" >Logout</a></div>
+{% else %}
+    <h1> You are not logged in </h1>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+
+ {% endif %}
+</div>
+<div id="show"></div>
+{% endblock %}
+
+{% block script %}
+<style>
+  /* CSS for the account-info container */
+.account-info {
+    display: flex;
+    align-items: center;
+    padding: 10px; /* Add padding for spacing */
+    border: 1px solid #ccc; /* Add a border for clarity */
+    border-radius: 5px; /* Add rounded corners for aesthetics */
+}
+
+/* CSS for the logo */
+/* CSS for the logo */
+.logo {
+    margin-right: 10px; /* Add spacing between the logo and the username */
+}
+
+/* Style the logo image */
+.logo img {
+    width: 80px; /* Set the desired width for the logo image */
+    height: 80px; /* Set the desired height for the logo image */
+    border-radius: 50%; /* Make the logo image circular */
+}
+
+
+/* CSS for the username */
+.name h3 {
+    margin: 0; /* Remove default margin */
+    font-size: 18px; /* Adjust the font size */
+    color: #333; /* Set the text color */
+}
+
+/* CSS for the expand-more icon */
+.expand-more {
+    margin-left: auto; /* Push the icon to the right */
+    cursor: pointer; /* Add a pointer cursor to indicate interactivity */
+    fill: #333; /* Set the icon color */
+}
+
+/* Hover effect for the expand-more icon */
+.expand-more:hover {
+    fill: #007bff; /* Change the icon color on hover */
+}
+/* Style the choices container */
+.choices-full {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+/* Style individual choice items */
+.choices a {
+    text-decoration: none;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333; /* Dark gray color */
+}
+
+/* Style the account settings section */
+.acoount-settings ,.activity-settings{
+    margin-top: 20px;
+}
+
+/* Style the Account Settings title */
+.acoount-settings h5 ,.activity-settings h5{
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333; /* Dark gray color */
+}
+
+/* Style individual account setting items */
+.acoount-settings div ,.activity-settings div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Style the expand-more icon within account settings */
+.acoount-settings .expands-more svg ,.activity-settings .expands-more svg{
+    fill: #333; /* Dark gray color */
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.expands-more:hover svg {
+    fill: #007bff; /* Blue color */
+}
+
+/* Style the anchor elements */
+a {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Set text color to blue */
+    transition: color 0.2s ease; /* Add a smooth color transition effect */
+}
+
+/* Change the link color on hover */
+a:hover {
+    color: #0056b3; /* Change text color to a darker blue on hover */
+}
+
+/* Style the anchor elements inside the .choices class */
+.choices a {
+    display: inline-block; /* Display the anchors as block elements */
+    padding: 10px; /* Add padding for better spacing */
+}
+
+/* Style the anchor elements inside the .logout class as long buttons */
+.logout a {
+    display: inline-block; /* Display the anchors as block elements */
+    padding: 10px; /* Add vertical padding */
+    padding-left: 30px; /* Add horizontal padding on the left */
+    padding-right: 30px; /* Add horizontal padding on the right */
+    background-color: #dc3545; /* Set background color to red */
+    color: #fff; /* Set text color to white */
+    border: none; /* Remove borders */
+    border-radius: 5px; /* Add rounded corners */
+    text-align: center; /* Center align text */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Add smooth transition effects */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Change the background and text color on hover for long buttons */
+.logout a:hover {
+    background-color: #c82333; /* Darker red on hover */
+    color: #fff; /* White text on hover */
+}
+
+/* CSS for the user-info container */
+.user-info {
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex; /* Center the contents horizontally */
+    flex-direction: column; /* Align contents in a column */
+    align-items: center; /* Center contents vertically */
+}
+
+/* Style the h1 */
+.user-info h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Style the image */
+.user-info img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+/* Style the labels and paragraphs */
+.user-info label {
+    font-weight: bold;
+    color: #555;
+    margin: 5px 0; /* Adjust margin for spacing */
+}
+
+.user-info p {
+    margin: 0; /* Remove the default margin for paragraphs */
+    color: #777;
+}
+
+
+
+</style>  
+<script src="{% static 'allfurnitures/account.js' %}" ></script>
 {% endblock %}

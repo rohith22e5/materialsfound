@@ -4,6 +4,17 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     wishlist = models.ManyToManyField("Furniture", blank=True, related_name="wishlists")
+    orders= models.ManyToManyField("Furniture", blank=True, related_name="orders")
+    image = models.ImageField(upload_to='users', default='allfurnitures/users/default.jpg')
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "wishlist": [furniture.id for furniture in self.wishlist.all()],
+            "orders": [furniture.id for furniture in self.orders.all()],
+            "image": self.image.url
+        }
+    
 
 class Furniture(models.Model):
     name = models.CharField(max_length=64)
