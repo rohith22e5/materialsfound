@@ -129,9 +129,12 @@ def cart(request):
 @login_required
 def account(request):
     if request.method=="GET":
-        return render(request, "allfurnitures/account.html",{
-            "User": request.user
-        })
+        if request.content_type == 'application/json':
+            return JsonResponse(request.user.serialize())
+        else:
+            return render(request, "allfurnitures/account.html",{
+                "User": request.user
+            })
     
 @login_required
 def furniture(request,furniture_id):

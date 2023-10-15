@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-<div class="page" data-username="{{ user.username }}" data-email="{{ user.email }}" data-photo="{{ user.image.url }}" >
+<div class="page">
 <div class="account-info">
     {% if user.is_authenticated %}
     <div class="logo">
