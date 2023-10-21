@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 import json
 from django.views.decorators.csrf import csrf_exempt
-from .models import User, Furniture, Cart, Comments
+from .models import User, Furniture, Cart, Comments, Orders
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core import serializers
@@ -205,3 +205,19 @@ def wishlist(request):
         return JsonResponse({"message": "Added to wishlist"}, status=201)
     else:
         return HttpResponse("Method not allowed")
+    
+@login_required
+def orders(request):
+    if request.method=="GET":
+        orders=Orders.objects.filter(user=request.user)
+        orders=orders.order_by("-date").all()
+        return JsonResponse([order.serialize() for order in orders],safe=False)
+    elif request.method=="POST":
+        data=json.loads(request.body)
+        furniture= Furniture.objects.get(id=data.get("id"))
+        user=request.user
+        quantity=data.get("quantity")
+        order=Orders(user=user,furniture=furniture,quantity=quantity)
+        order.save()
+        return JsonResponse({"message":"Order placed successfully",
+                             "order": order.serialize()  },status=201)

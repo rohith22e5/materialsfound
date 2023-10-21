@@ -130,6 +130,27 @@ document.addEventListener('DOMContentLoaded', function() {
     stars[i].classList.add('active');
     }
 
+    const buy=document.getElementById('buy_button');
+    buy.onclick=function(){
+        console.log('buy button clicked');
+        fetch('/orders',{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken") 
+            },
+            body: JSON.stringify({
+                id: buy.dataset.id,
+                quantity: 1
+            })
+        }).then(response => response.json()).then(result => {
+            console.log(result);
+            alert(result.message);
+        }).catch(error => {
+            console.log('Error:', error);
+        });
+    }
+
 });
 
 

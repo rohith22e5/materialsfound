@@ -15,4 +15,5 @@ urlpatterns=[
     path("categories/<str:category>",views.category,name="category"),
     path("Comment",views.comment,name="Comment"),
     path("wishlist",views.wishlist,name="wishlist"),
+    path("orders",views.orders,name="orders"),
 ]

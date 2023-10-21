@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     wishlist = models.ManyToManyField("Furniture", blank=True, related_name="wishlists")
-    orders= models.ManyToManyField("Furniture", blank=True, related_name="orders")
     image = models.ImageField(upload_to='users', default='allfurnitures/users/default.jpg')
     mobile=models.CharField(max_length=10,blank=True)
     def serialize(self):
@@ -59,4 +58,23 @@ class Comments(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.furniture.name} - {self.date.strftime('%b %d %Y, %I:%M %p')}"
     
+class Orders(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
+    furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE, related_name="orders")
+    quantity = models.IntegerField(default=1)
+    date = models.DateTimeField(auto_now_add=True)
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user": self.user.username,
+            "furniture": self.furniture.name,
+            "quantity": self.quantity,
+            "date": self.date.strftime("%b %d %Y, %I:%M %p"),
+            "image": self.furniture.image.url,
+            "price": self.furniture.price
+
+        }
+
+    def __str__(self):
+        return f"{self.user.username} - {self.furniture.name} - {self.quantity} - {self.date.strftime('%b %d %Y, %I:%M %p')}"
